@@ -19,7 +19,7 @@ require("lazy").setup({
         init = function() vim.cmd(":colorscheme rose-pine") end },
 
     -- Navigation
-    { "nvim-telescope/telescope.nvim", tag = "0.1.0",
+    { "nvim-telescope/telescope.nvim", tag = "0.1.4",
         dependencies = { "nvim-lua/plenary.nvim" } },
     { "theprimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" } },
 
