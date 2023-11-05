@@ -21,7 +21,6 @@ require("lazy").setup({
     -- Navigation
     { "nvim-telescope/telescope.nvim", tag = "0.1.4",
         dependencies = { "nvim-lua/plenary.nvim" } },
-    { "theprimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" } },
 
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
