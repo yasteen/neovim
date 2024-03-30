@@ -12,11 +12,14 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
 require("lazy").setup({
     -- Colour
-    { "rose-pine/neovim", name = "rose-pine",
-        init = function() vim.cmd(":colorscheme rose-pine") end },
+    { "luisiacc/gruvbox-baby",
+        init = function()
+            vim.cmd(":colorscheme gruvbox-baby")
+            vim.cmd(":hi ColorColumn guibg=#444444")
+        end
+    },
 
     -- Navigation
     { "nvim-telescope/telescope.nvim", tag = "0.1.4",
@@ -32,5 +35,13 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp",
     "L3MON4D3/LuaSnip",
 
-    "tpope/vim-fugitive"
+    -- Other language support
+    "tikhomirov/vim-glsl", -- highlighting
+    { "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreview", "MarkdownPreviewToggle", "MarkdownPreviewStop" },
+        ft = { "markdown" }, build = function() vim.fn["mkdp#util#install"]() end },
+
+    -- Git
+    "tpope/vim-fugitive",
+    "lewis6991/gitsigns.nvim"
 })
