@@ -56,7 +56,7 @@ lspconfig.clangd.setup({})
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
-        local opts = {buffer = event.buf, remap = false}
+        local opts = { buffer = event.buf, remap = false }
 
         -- Jump to symbols
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- Refactor and change
         vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set({'n', 'x'}, '<F3>', function() vim.lsp.buf.format({async = true}) end, opts)
+        vim.keymap.set({ 'n', 'x' }, '<F3>', function() vim.lsp.buf.format({ async = true }) end, opts)
         vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 
         -- other mappings from lspconfig
@@ -102,8 +102,7 @@ cmp.setup({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         -- Enter key confirms completion item
-        ['<CR>'] = cmp.mapping.confirm({select = false}),
-        ['<C-y>'] = cmp.mapping.confirm({select = false}),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         -- Ctrl + space triggers completion menu
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
@@ -112,4 +111,19 @@ cmp.setup({
             require('luasnip').lsp_expand(args.body)
         end,
     },
+})
+
+
+
+--------------------
+-- FORMAT ON SAVE --
+--------------------
+vim.api.nvim_create_autocmd("BufWritePre", {
+    desc = "Format files on write (based on filetype) using default formatter",
+    group = vim.api.nvim_create_augroup("fmt_on_save", { clear = true }),
+    callback = function(opts)
+        if vim.bo[opts.buf].filetype == "go" then
+            vim.lsp.buf.format()
+        end
+    end
 })
